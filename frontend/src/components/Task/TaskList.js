@@ -1,9 +1,12 @@
-// TaskList.js
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { taskListState } from '../../States/TaskListState'; 
+
+
 
 const TaskList = () => {
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useRecoilState(taskListState);
     const token = localStorage.getItem('access_token');  // Getting the saved token from localStorage
 
     useEffect(() => {
@@ -24,14 +27,14 @@ const TaskList = () => {
         };
 
         fetchTasks();
-    }, [token]);
+    }, [token, setTasks]); 
 
     return (
         <div>
             <h1>Tasks</h1>
             <ul>
                 {tasks.map(task => (
-                    <li key={task.user}>
+                    <li key={task.id}>
                         <h2>{task.time}</h2>
                         <p>{task.comment}</p>
                     </li>

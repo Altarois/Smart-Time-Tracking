@@ -6,3 +6,5 @@ class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = ['user', 'time', 'comment']
+
+        extra_kwargs = {'user': {'required': False}}
